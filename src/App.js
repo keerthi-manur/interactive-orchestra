@@ -186,7 +186,7 @@ function App() {
       partsRef.current = {};
 
       Object.entries(theme.musicians).forEach(([section, musicians]) => {
-        const volumeNode = new Tone.Volume(initVolumes[section]).toDestination();
+        const volumeNode = new Tone.Gain(initVolumes[section]).toDestination();
         volumeNodesRef.current[section] = volumeNode;
 
         const synthConfig = theme.synths[section];
