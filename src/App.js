@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Tone from 'tone';
+import { PolySynth, Synth, Loop, Transport, start } from 'tone';
 import './App.css';
 
 function App() {
@@ -13,7 +13,6 @@ function App() {
   
   const partsRef = useRef({});
   const synthsRef = useRef({});
-  const volumeNodesRef = useRef({});
 
   const themes = {
     cottagecore: {
@@ -178,23 +177,20 @@ function App() {
 
     const initAudio = async () => {
       Object.values(synthsRef.current).forEach(synth => synth?.dispose());
-      Object.values(volumeNodesRef.current).forEach(vol => vol?.dispose());
       Object.values(partsRef.current).forEach(part => part?.dispose());
       
       synthsRef.current = {};
-      volumeNodesRef.current = {};
       partsRef.current = {};
 
       Object.entries(theme.musicians).forEach(([section, musicians]) => {
         const synthConfig = theme.synths[section];
-        const synth = new Tone.PolySynth(Tone.Synth, synthConfig).toDestination();
+        const synth = new PolySynth(Synth, synthConfig).toDestination();
         synth.volume.value = initVolumes[section];
-        volumeNodesRef.current[section] = synth;
         synthsRef.current[section] = synth;
 
         musicians.forEach(musician => {
           let patternIndex = 0;
-          const loop = new Tone.Loop((time) => {
+          const loop = new Loop((time) => {
             const note = musician.pattern[patternIndex % musician.pattern.length];
             synth.triggerAttackRelease(note, musician.duration, time);
             patternIndex++;
@@ -209,28 +205,27 @@ function App() {
     return () => {
       Object.values(partsRef.current).forEach(loop => loop?.dispose());
       Object.values(synthsRef.current).forEach(synth => synth?.dispose());
-      Object.values(volumeNodesRef.current).forEach(vol => vol?.dispose());
     };
   }, [selectedTheme]);
 
   useEffect(() => {
     if (isStarted) {
-      Tone.Transport.bpm.value = tempo;
+      Transport.bpm.value = tempo;
     }
   }, [tempo, isStarted]);
 
   useEffect(() => {
     Object.keys(volumes).forEach(section => {
-      if (volumeNodesRef.current[section]) {
-        volumeNodesRef.current[section].volume.value = volumes[section];
+      if (synthsRef.current[section]) {
+        synthsRef.current[section].volume.value = volumes[section];
       }
     });
   }, [volumes]);
 
   const toggleMusician = async (musicianId) => {
     if (!isStarted) {
-      await Tone.start();
-      Tone.Transport.start();
+      await start();
+      Transport.start();
       setIsStarted(true);
     }
 
