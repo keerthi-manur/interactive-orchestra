@@ -25,7 +25,7 @@ import './App.css';
           { id: 'woodwinds-1', name: 'Flute Trill', icon: '🎵', pattern: ['E5', 'F5', 'E5', 'D5', 'E5', 'F5', 'E5', 'D5'], duration: '8n' },
           { id: 'woodwinds-2', name: 'Clarinet', icon: '🎵', pattern: ['G4', 'A4', 'B4', 'C5'], duration: '4n' },
           { id: 'woodwinds-3', name: 'Oboe', icon: '🎵', pattern: ['C5', 'B4', 'A4', 'G4'], duration: '4n' },
-          { id: 'woodwinds-4', name: 'Bassoon', icon: '🎵', pattern: ['C3', 'D3', 'E3', 'G3', 'E3', 'D3'], duration: '8n' }
+          { id: 'woodwinds-4', name: 'Saxophone', icon: '🎷', pattern: ['C3', 'D3', 'E3', 'G3', 'E3', 'D3'], duration: '8n' }
         ],
         themed: [
           { id: 'themed-1', name: 'Harp Arpeggios', icon: '🎵', pattern: ['C4', 'E4', 'G4', 'C5', 'G4', 'E4'], duration: '16n' },
