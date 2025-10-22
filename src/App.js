@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as Tone from 'tone';
+import Tone from 'tone';
 import './App.css';
 
 function App() {
