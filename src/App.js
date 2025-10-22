@@ -186,11 +186,10 @@ function App() {
       partsRef.current = {};
 
       Object.entries(theme.musicians).forEach(([section, musicians]) => {
-        const volumeNode = new Tone.Gain(Math.pow(10, initVolumes[section] / 20)).toDestination();
-        volumeNodesRef.current[section] = volumeNode;
-
         const synthConfig = theme.synths[section];
-        const synth = new Tone.PolySynth(Tone.Synth, synthConfig).connect(volumeNode);
+        const synth = new Tone.PolySynth(Tone.Synth, synthConfig).toDestination();
+        synth.volume.value = initVolumes[section];
+        volumeNodesRef.current[section] = synth;
         synthsRef.current[section] = synth;
 
         musicians.forEach(musician => {
@@ -223,7 +222,7 @@ function App() {
   useEffect(() => {
     Object.keys(volumes).forEach(section => {
       if (volumeNodesRef.current[section]) {
-        volumeNodesRef.current[section].gain.value = Math.pow(10, volumes[section] / 20);
+        volumeNodesRef.current[section].volume.value = volumes[section];
       }
     });
   }, [volumes]);
