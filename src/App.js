@@ -2,17 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PolySynth, Synth, Loop, Transport, start } from 'tone';
 import './App.css';
 
-function App() {
-  const [selectedTheme, setSelectedTheme] = useState('cottagecore');
-  const [activeSounds, setActiveSounds] = useState({});
-  const [isStarted, setIsStarted] = useState(false);
-  const [tempo, setTempo] = useState(120);
-  const [showVolume, setShowVolume] = useState(false);
-  const [showThemes, setShowThemes] = useState(false);
-  const [volumes, setVolumes] = useState({});
-  
-  const partsRef = useRef({});
-  const synthsRef = useRef({});
 
   const themes = {
     cottagecore: {
@@ -164,6 +153,18 @@ function App() {
       }
     }
   };
+
+function App() {
+  const [selectedTheme, setSelectedTheme] = useState('cottagecore');
+  const [activeSounds, setActiveSounds] = useState({});
+  const [isStarted, setIsStarted] = useState(false);
+  const [tempo, setTempo] = useState(120);
+  const [showVolume, setShowVolume] = useState(false);
+  const [showThemes, setShowThemes] = useState(false);
+  const [volumes, setVolumes] = useState({});
+  
+  const partsRef = useRef({});
+  const synthsRef = useRef({});
 
   useEffect(() => {
     if (!selectedTheme) return;
