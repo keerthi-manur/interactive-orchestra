@@ -19,15 +19,18 @@ jobs:
           node-version: 18
         
       - name: Install dependencies
-        run: |
-          rm -rf node_modules
-          npm cache clean --force
-          npm install --verbose
+        run: npm install
       
-      - name: Debug - Check Tone.js
+      - name: Debug - Check installations
         run: |
+          echo "=== Checking tone installation ==="
           npm list tone
-          ls -la node_modules/tone
+          echo "=== Checking node_modules/tone ==="
+          ls -la node_modules/tone/ || echo "tone directory not found"
+          echo "=== Checking tone package.json ==="
+          cat node_modules/tone/package.json || echo "package.json not found"
+          echo "=== Checking if Tone.js files exist ==="
+          ls -la node_modules/tone/build/ || echo "build directory not found"
       
       - name: Build
         run: npm run build
