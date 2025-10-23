@@ -8,13 +8,4 @@ Create music with multiple themes including Cottagecore, Electronic, Rock, and L
 - Adjustable tempo and volume controls
 - No musical experience needed!
 
-## Run Locally
-\`\`\`bash
-npm install
-npm start
-\`\`\`
-
-## Deploy
-\`\`\`bash
-npm run build
-\`\`\`
+Visit https://keerthi-manur.github.io/interactive-orchestra/ to check it out!
